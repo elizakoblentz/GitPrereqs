@@ -80,5 +80,6 @@ public class Blob {
     
     public static void main (String[]args) throws NoSuchAlgorithmException, IOException {
     	Blob blob = new Blob("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test.txt");
+    	Blob blob2 = new Blob("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test2.txt");
     }
 }
