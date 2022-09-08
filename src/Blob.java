@@ -49,7 +49,7 @@ public class Blob {
     	//reading and printing the file to new file:
     	String code = sha1Code(filePath);
     	FileInputStream in = new FileInputStream(filePath);
-    	FileOutputStream out = new FileOutputStream(System.getProperty("user.dir") + "/objects/" + code);
+    	FileOutputStream out = new FileOutputStream("objects/" + code);
     	try {
     		  
             int n;
@@ -79,7 +79,7 @@ public class Blob {
     }
     
     public static void main (String[]args) throws NoSuchAlgorithmException, IOException {
-    	Blob blob = new Blob("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test.txt");
-    	Blob blob2 = new Blob("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test2.txt");
+    	Blob blob = new Blob("test.txt");
+    	Blob blob2 = new Blob("test2.txt");
     }
 }

@@ -6,29 +6,29 @@ public class Index {
 	
 	public Index () {
 		files = new HashMap<String, String>();
-		File theDir = new File(System.getProperty("user.dir") + "/objects");
+		File theDir = new File("/objects");
 		if (!theDir.exists()){
 		    theDir.mkdirs();
 		}
 	}
 	
 	public void init () throws Exception {
-		FileOutputStream out = new FileOutputStream(System.getProperty("user.dir") + "/" + "index");
+		FileOutputStream out = new FileOutputStream("index");
 		
 		out.close();
 	}
 	
-	public void add (String filePath) throws Exception {
-		Blob added = new Blob (filePath);
-		files.put(filePath, added.sha1Code(filePath));
+	public void add (String fileName) throws Exception {
+		Blob added = new Blob (fileName);
+		files.put(fileName, added.sha1Code(fileName));
 		update();
 		
 	}
 	
 	private void update () throws Exception {
-		FileOutputStream clearer = new FileOutputStream(System.getProperty("user.dir") + "/" + "index");
+		FileOutputStream clearer = new FileOutputStream("index");
 		clearer.close();
-		PrintWriter out = new PrintWriter(System.getProperty("user.dir") + "/" + "index");
+		PrintWriter out = new PrintWriter("index");
 		
 		for (String key : files.keySet()) {
 			out.println(key + " : " + files.get(key));
@@ -37,10 +37,10 @@ public class Index {
 		out.close();
 	}
 	
-	public void remove (String filePath) throws Exception {
-		String shaCode = files.get(filePath);
-		files.remove(filePath);
-		File removed = new File(System.getProperty("user.dir") + "/objects/" + shaCode);
+	public void remove (String fileName) throws Exception {
+		String shaCode = files.get(fileName);
+		files.remove(fileName);
+		File removed = new File("objects/" + shaCode);
 		removed.delete();
 		update();
 	}
@@ -48,9 +48,9 @@ public class Index {
 	public static void main (String[]args) throws Exception {
 		Index indy = new Index();
 		indy.init();
-		indy.add("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test.txt");
-		indy.add("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test2.txt");
-		indy.remove("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test.txt");
+		indy.add("test.txt");
+		indy.add("test2.txt");
+		indy.remove("test.txt");
 	}
 	
 	
