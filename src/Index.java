@@ -50,7 +50,7 @@ public class Index {
 		indy.init();
 		indy.add("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test.txt");
 		indy.add("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test2.txt");
-		//indy.remove("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test.txt");
+		indy.remove("/Users/charlesseymour/eclipse-workspace/GitPrereqs/test.txt");
 	}
 	
 	
