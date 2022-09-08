@@ -2,11 +2,16 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import java.io.*;
 
 public class Blob {
-	public Blob (String filePath) throws NoSuchAlgorithmException, IOException {
-		writeFile(filePath);
+	String fileName;
+	public Blob (String fileName) throws Exception {
+		this.fileName = fileName;
+		zipFile();
+		writeFile(fileName);
 	}
 	
 	public String sha1Code(String filePath) throws IOException, NoSuchAlgorithmException {
@@ -78,7 +83,18 @@ public class Blob {
     	
     }
     
-    public static void main (String[]args) throws NoSuchAlgorithmException, IOException {
+    public void zipFile() throws Exception {
+    	FileOutputStream output = new FileOutputStream(fileName + ".zip");
+    	ZipOutputStream zipOut = new ZipOutputStream(output);
+    	ZipEntry ze = new ZipEntry(this.fileName);
+        zipOut.putNextEntry(ze);
+        
+        zipOut.closeEntry();
+        zipOut.close();
+    	
+    }
+    
+    public static void main (String[]args) throws Exception {
     	Blob blob = new Blob("test.txt");
     	Blob blob2 = new Blob("test2.txt");
     }
