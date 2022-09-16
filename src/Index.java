@@ -44,7 +44,7 @@ public class Index {
 		removed.delete();
 		update();
 	}
-	
+	/**
 	public static void main (String[]args) throws Exception {
 		Index indy = new Index();
 		indy.init();
@@ -52,6 +52,6 @@ public class Index {
 		indy.add("test2.txt");
 		indy.remove("test.txt");
 	}
-	
+	*/
 	
 }
