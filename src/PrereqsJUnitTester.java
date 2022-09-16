@@ -38,9 +38,25 @@ class PrereqsJUnitTester {
 	
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
-		//File testText=new File("myTesterText.txt");
-		//testText.delete();
+		File testText=new File("myTesterText.txt");
+		testText.delete();
+		File testText2=new File("myTesterText2.txt");
+		testText2.delete();
+		File testText3=new File("myTesterText3.txt");
+		testText3.delete();
+		
+		File blob1=new File("./objects/da39a3ee5e6b4b0d3255bfef95601890afd80709");
+		File blob2=new File("./objects/92d96b52b7f26ae0561c2be7466196ef848ac975");
+		File blob3=new File("./objects/58d42438552af3d1978a8631a29823f0fd56e9ca");
+		blob1.delete();
+		blob2.delete();
+		blob3.delete();
+		File objectsFolder=new File("./objects");
+		objectsFolder.delete();
+		
+		
 		//kill blobs in objects, also index
+		
 	}
 	
 	@Test
@@ -118,7 +134,11 @@ class PrereqsJUnitTester {
 		String indexContent=Files.readString(indexFile);
 		
 	
-		dexy.remove("MyTesterText.txt");
+		dexy.add("myTesterText.txt");
+		dexy.add("myTesterText2.txt");
+		dexy.add("myTesterText3.txt");
+		
+		dexy.remove("myTesterText.txt");
 		indexContent=Files.readString(indexFile);
 		assertTrue(!indexContent.contains("myTesterText.txt"+" : "+"da39a3ee5e6b4b0d3255bfef95601890afd80709"));
 		File tester1=new File("./objects/da39a3ee5e6b4b0d3255bfef95601890afd80709");
