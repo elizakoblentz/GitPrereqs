@@ -5,10 +5,11 @@ import java.io.PrintWriter;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PrereqsJUnitTester {
-
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		File testText=new File("myTesterText.txt");
@@ -28,8 +29,8 @@ class PrereqsJUnitTester {
 		writer3.print("watch mob psycho");
 		writer3.close();
 	}
-	//Charlie-s-GitPrereqs/objects
-
+	//Charlie-s-GitPrereqs/objects 
+	
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
 		//File testText=new File("myTesterText.txt");
@@ -50,7 +51,7 @@ class PrereqsJUnitTester {
 	
 	
 	@Test //write one big test index tester ig
-	void testIndex() throws Exception {
+	void testInit() throws Exception {
 		Index dexy=new Index();
 		dexy.init();
 		
@@ -62,7 +63,13 @@ class PrereqsJUnitTester {
 	}
 	//make interface to his code
 	
-	
+	void testAdd() throws Exception {
+		Index dexy=new Index();
+		dexy.init();
+		
+		dexy.add("myTesterText.txt");
+		dexy.add("myTesterText2.txt");
+	}
 	
 
 }
