@@ -11,7 +11,7 @@ public class Blob {
 	public Blob (String fileName) throws Exception {
 		this.fileName = fileName;
 		zipFile();
-		writeFile(fileName);
+		writeFile();
 	}
 	
 	public String sha1Code(String filePath) throws IOException, NoSuchAlgorithmException {
@@ -50,10 +50,11 @@ public class Blob {
         return sb.toString();
     }
     
-    public void writeFile(String filePath) throws NoSuchAlgorithmException, IOException {
+    public void writeFile() throws NoSuchAlgorithmException, IOException {
     	//reading and printing the file to new file:
-    	String code = sha1Code(filePath);
-    	FileInputStream in = new FileInputStream(filePath);
+    	//String zipFileName = this.fileName;
+    	String code = sha1Code(fileName);
+    	FileInputStream in = new FileInputStream(fileName);
     	FileOutputStream out = new FileOutputStream("objects/" + code);
     	try {
     		  

@@ -51,6 +51,7 @@ public class Index {
 		indy.add("test.txt");
 		indy.add("test2.txt");
 		indy.remove("test.txt");
+		indy.remove("test2.txt");
 	}
 	*/
 	
