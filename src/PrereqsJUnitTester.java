@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -155,6 +156,21 @@ class PrereqsJUnitTester {
 		assertTrue(!indexContent.contains("myTesterText3.txt"+" : "+"da39a3ee5e6b4b0d3255bfef95601890afd80709"));
 		File tester3=new File("./objects/58d42438552af3d1978a8631a29823f0fd56e9ca");
 		assertTrue(!tester3.exists());
+	}
+	
+	@Test
+	void tree() throws Exception {
+		ArrayList<String> test = new ArrayList<String>();
+		
+		test.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
+		test.add("blob : 01d82591292494afd1602d175e165f94992f6f5f");
+		test.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
+		test.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
+		test.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
+		Tree treeTest = new Tree(test);
+		
+		File tester=new File(".objects/dd4840f48a74c1f97437b515101c66834b59b1be");
+		assertTrue(!tester.exists());
 	}
 	
 	
