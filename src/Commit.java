@@ -1,5 +1,8 @@
-import java.io.File;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -11,6 +14,7 @@ public class Commit {
 	private String summary;
 	private String author;
 	private String date;
+	private String fileName;
 	
 	public Commit (String pTree, String summary, String author, String parent) throws Exception {
 		File theDir = new File("/objects");
@@ -28,9 +32,14 @@ public class Commit {
 		Date date = new Date();
 		this.date = formatter.format(date);
 		
-		String fileName = createFileName();
+		fileName = createFileName();
 		File file = new File(fileName);
 		writeFile(file);
+	
+		if (parent != null)
+		{
+			changeParentChildToMe(parent);
+		}
 	}
 	
 	public String getDate() {
@@ -43,6 +52,33 @@ public class Commit {
 		writeFile(file);
 	}
 	
+	public void changeParentChildToMe(String parent) throws IOException
+	{
+		BufferedReader br = new BufferedReader(new FileReader(parent));
+		String content = "";
+		for (int index = 0; index < 2; index++)
+		{
+			content += br.readLine()+"\n";
+		}
+		content += "objects/" + fileName + "\n";
+		br.readLine();
+		for (int index = 0; index < 2; index++)
+		{
+			content += br.readLine() + "\n";
+		}
+		content += br.readLine();
+		
+		File f = new File (parent);
+		f.delete();
+		
+		Path p = Paths.get(parent);
+        try {
+            Files.writeString(p, content, StandardCharsets.ISO_8859_1);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+	}
 	//gets sha1Code of parameter String
 	public String sha1Code (String value) {
 		String sha1 = "";
@@ -59,19 +95,34 @@ public class Commit {
 	
 	public String createFileName() {
 		String input = summary + getDate() + author + parent;
-		return "./objects/" + sha1Code(input);
+		return "objects/" + sha1Code(input);
 	}
 	
 	public void writeFile(File file) throws Exception {
-		PrintWriter out = new PrintWriter(file);
-		out.println(pTree);
+	PrintWriter out = new PrintWriter(file);
+	out.println(pTree);
+	if (parent != null)
+	{
 		out.println(parent);
-		out.println(next);
-		out.println(author);
-		out.println(getDate());
-		out.println(summary);
-		out.close();
 	}
+	else
+	{
+		out.println("");
+	}
+	if (next != null)
+	{
+		out.println(next);
+	}
+	else
+	{
+		out.println ("");
+	}
+	out.println(author);
+	out.println(getDate());
+	out.println(summary);
+	out.close();
+	}
+	
 	
 	public static void main (String[]args) throws Exception{
 		ArrayList<String> test = new ArrayList<String>();
@@ -83,9 +134,13 @@ public class Commit {
 		test.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
 		Tree treeTest = new Tree(test);
 		
-		Commit commit1 = new Commit("./objects/dd4840f48a74c1f97437b515101c66834b59b1be", "this is cool", "charlie seymour", null);
-		Commit commit2 = new Commit("./objects/dd4840f48a74c1f97437b515101c66834b59b1be", "wow, really cool", "charlie seymour", commit1.createFileName());
-		commit1.setNext(commit2.createFileName());
+		System.out.println ("Commit objects");
+		Commit commit1 = new Commit("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "this is cool", "charlie seymour", null);
+		Commit commit2 = new Commit("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "wow, really cool", "charlie seymour", commit1.createFileName());
+		//commit1.setNext(commit2.createFileName());
+		Commit commit3 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "cool! this is", "charlie seymour", commit2.createFileName());
+		Commit commit4 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "is this cool?", "charlie seymour", commit3.createFileName());
+		//commit2.setNext(commit3.createFileName());
 	}
 	
 }

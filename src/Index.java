@@ -44,15 +44,16 @@ public class Index {
 		removed.delete();
 		update();
 	}
-	/**
+	
 	public static void main (String[]args) throws Exception {
 		Index indy = new Index();
 		indy.init();
-		indy.add("test.txt");
-		indy.add("test2.txt");
-		indy.remove("test.txt");
-		indy.remove("test2.txt");
+		indy.add("ElizaTesterBlob1.txt");
+		indy.add("ElizaTesterBlob2.txt");
+		indy.remove("ElizaTesterBlob1.txt");
+		indy.remove("ElizaTesterBlob2.txt");
+		indy.add("ElizaTesterBlob1.txt");
 	}
-	*/
+	
 	
 }

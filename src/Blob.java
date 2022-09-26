@@ -95,8 +95,10 @@ public class Blob {
     	
     }
     
-    public static void main (String[]args) throws Exception {
-    	Blob blob = new Blob("test.txt");
-    	Blob blob2 = new Blob("test2.txt");
+    public static void main (String[]args) throws Exception 
+    {
+    	Blob b1 = new Blob ("ElizaTesterBlob1.txt");
+    	Blob b2 = new Blob ("ElizaTesterBlob2.txt");
+    	
     }
 }
