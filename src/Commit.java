@@ -12,14 +12,14 @@ import java.io.*;
 public class Commit {
 	private String parent;
 	private String next;
-	private Tree tree;
 	private String pTree;
 	private String summary;
 	private String author;
 	private String date;
+	private String treeSha;
 	private String fileName;
 	
-	public Commit (Tree tree, String summary, String author, String parent) throws Exception {
+	public Commit (String summary, String author, String parent) throws Exception {
 		File theDir = new File("/objects");
 		if (!theDir.exists()){
 		    theDir.mkdirs();
@@ -27,8 +27,6 @@ public class Commit {
 		
 		this.parent = parent;
 		this.next = null;
-		this.tree = tree;
-		pTree = tree.getTreeSha();
 		this.summary = summary;
 		this.author = author;
 		
@@ -38,18 +36,49 @@ public class Commit {
 		
 		fileName = createFileName();
 		File file = new File(fileName);
+		
+		
+		generateTree();
 		writeFile(file);
-	
+		
 		if (parent != null)
 		{
 			changeParentChildToMe(parent);
 		}
-		
 		clearIndex();
 	}
 	
 	public String getDate() {
 		return this.date;
+	}
+	
+	public void generateTree() throws IOException
+	{
+		ArrayList<String> arr = makeIndexArrayList();
+		if (parent != null)
+		{
+			BufferedReader br = new BufferedReader(new FileReader(parent));
+			String fullLine = br.readLine();
+			String parTreeSha = fullLine.substring(fullLine.indexOf("/")+1);
+			Tree tree = new Tree (arr, parTreeSha);
+			treeSha = tree.getTreeSha();
+		}
+		else
+		{
+			Tree tree = new Tree (arr, null);
+			treeSha = tree.getTreeSha();
+		}
+	}
+	
+	public ArrayList<String> makeIndexArrayList() throws IOException
+	{
+		ArrayList<String> c =new ArrayList<String>();
+		BufferedReader br = new BufferedReader(new FileReader("index"));
+		while (br.ready())
+		{
+			c.add(br.readLine());
+		}
+		return c;
 	}
 	
 	public void setNext(String next) throws Exception{
@@ -66,7 +95,7 @@ public class Commit {
 		{
 			content += br.readLine()+"\n";
 		}
-		content += "objects/" + fileName + "\n";
+		content += fileName + "\n";
 		br.readLine();
 		for (int index = 0; index < 2; index++)
 		{
@@ -106,7 +135,7 @@ public class Commit {
 	
 	public void writeFile(File file) throws Exception {
 		PrintWriter out = new PrintWriter(file);
-		out.println(pTree);
+		out.println("objects/"+treeSha);
 		if (parent != null)
 		{
 			out.println(parent);
@@ -139,8 +168,29 @@ public class Commit {
 	
 	
 	public static void main (String[]args) throws Exception{
-		ArrayList<String> test = new ArrayList<String>();
+		/*
+		Blob blob1 = new Blob ("ElizaTesterBlob1.txt");
+		Blob blob2 = new Blob ("ElizaTesterBlob2.txt");
+		Blob blob3 = new Blob ("ElizaTesterBlob3.txt");
+		*/
 		
+		Index index1 = new Index();
+		index1.init();
+		index1.add("ElizaTesterBlob1.txt");
+		index1.add("ElizaTesterBlob2.txt");
+		index1.add("ElizaTesterBlob3.txt");
+		
+		Commit commit1 = new Commit ("this is my summary!", "Eliza Koblentz", null);
+
+		Index index2 = new Index();
+		index2.init();
+		index2.add("ElizaTesterBlob1.txt");
+		index2.add("ElizaTesterBlob2.txt");
+		index2.add("ElizaTesterBlob3.txt");
+		
+		Commit commit2 = new Commit ("this is my second summary!", "Eliza Koblentz", commit1.createFileName());
+		
+		/*
 		test.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
 		test.add("blob : 01d82591292494afd1602d175e165f94992f6f5f");
 		test.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
@@ -154,6 +204,7 @@ public class Commit {
 		//Commit commit3 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "cool! this is", "charlie seymour", commit2.createFileName());
 		//Commit commit4 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "is this cool?", "charlie seymour", commit3.createFileName());
 		//commit2.setNext(commit3.createFileName());
+		 */
 	}
 	
 }

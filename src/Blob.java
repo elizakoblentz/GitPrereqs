@@ -10,7 +10,7 @@ public class Blob {
 	String fileName;
 	public Blob (String fileName) throws Exception {
 		this.fileName = fileName;
-		zipFile();
+		//zipFile();
 		writeFile();
 	}
 	
@@ -83,7 +83,8 @@ public class Blob {
         }
     	
     }
-    
+   
+    /*
     public void zipFile() throws Exception {
     	FileOutputStream output = new FileOutputStream(fileName + ".zip");
     	ZipOutputStream zipOut = new ZipOutputStream(output);
@@ -91,10 +92,9 @@ public class Blob {
         zipOut.putNextEntry(ze);
         
         zipOut.closeEntry();
-        zipOut.close();
-    	
+        zipOut.close();	
     }
-    
+    */
     public static void main (String[]args) throws Exception 
     {
     	Blob b1 = new Blob ("ElizaTesterBlob1.txt");
