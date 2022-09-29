@@ -8,8 +8,8 @@ public class TreeTester {
 		info.add("shrek : alkdfjadasd");
 		info.add("beans : adlfjasdkf");
 		info.add("kuro : ;lj;lkj;kj");
-		Tree tronk=new Tree(info);
-		tronk.saveInfo();
+		//Tree tronk=new Tree(info);
+		//tronk.saveInfo();
 		
 	}
 

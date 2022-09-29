@@ -1,3 +1,4 @@
+
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -7,16 +8,18 @@ import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.io.*;
+
 public class Commit {
 	private String parent;
 	private String next;
+	private Tree tree;
 	private String pTree;
 	private String summary;
 	private String author;
 	private String date;
 	private String fileName;
 	
-	public Commit (String pTree, String summary, String author, String parent) throws Exception {
+	public Commit (Tree tree, String summary, String author, String parent) throws Exception {
 		File theDir = new File("/objects");
 		if (!theDir.exists()){
 		    theDir.mkdirs();
@@ -24,7 +27,8 @@ public class Commit {
 		
 		this.parent = parent;
 		this.next = null;
-		this.pTree = pTree;
+		this.tree = tree;
+		pTree = tree.getTreeSha();
 		this.summary = summary;
 		this.author = author;
 		
@@ -40,6 +44,8 @@ public class Commit {
 		{
 			changeParentChildToMe(parent);
 		}
+		
+		
 	}
 	
 	public String getDate() {
@@ -132,14 +138,13 @@ public class Commit {
 		test.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
 		test.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
 		test.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
-		Tree treeTest = new Tree(test);
+		//Tree treeTest = new Tree(test);
 		
-		System.out.println ("Commit objects");
-		Commit commit1 = new Commit("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "this is cool", "charlie seymour", null);
-		Commit commit2 = new Commit("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "wow, really cool", "charlie seymour", commit1.createFileName());
+		//Commit commit1 = new Commit("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "this is cool", "charlie seymour", null);
+		//Commit commit2 = new Commit("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "wow, really cool", "charlie seymour", commit1.createFileName());
 		//commit1.setNext(commit2.createFileName());
-		Commit commit3 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "cool! this is", "charlie seymour", commit2.createFileName());
-		Commit commit4 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "is this cool?", "charlie seymour", commit3.createFileName());
+		//Commit commit3 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "cool! this is", "charlie seymour", commit2.createFileName());
+		//Commit commit4 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "is this cool?", "charlie seymour", commit3.createFileName());
 		//commit2.setNext(commit3.createFileName());
 	}
 	
