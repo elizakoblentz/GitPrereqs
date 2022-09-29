@@ -45,7 +45,7 @@ public class Commit {
 			changeParentChildToMe(parent);
 		}
 		
-		
+		clearIndex();
 	}
 	
 	public String getDate() {
@@ -105,28 +105,36 @@ public class Commit {
 	}
 	
 	public void writeFile(File file) throws Exception {
-	PrintWriter out = new PrintWriter(file);
-	out.println(pTree);
-	if (parent != null)
-	{
-		out.println(parent);
+		PrintWriter out = new PrintWriter(file);
+		out.println(pTree);
+		if (parent != null)
+		{
+			out.println(parent);
+		}
+		else
+		{
+			out.println("");
+		}
+		if (next != null)
+		{
+			out.println(next);
+		}
+		else
+		{
+			out.println ("");
+		}
+		out.println(author);
+		out.println(getDate());
+		out.println(summary);
+		out.close();
 	}
-	else
+	public void clearIndex() throws IOException
 	{
-		out.println("");
-	}
-	if (next != null)
-	{
-		out.println(next);
-	}
-	else
-	{
-		out.println ("");
-	}
-	out.println(author);
-	out.println(getDate());
-	out.println(summary);
-	out.close();
+		FileWriter fwOb = new FileWriter("index", false); 
+		PrintWriter pwOb = new PrintWriter(fwOb, false);
+		pwOb.flush();
+		pwOb.close();
+		fwOb.close();
 	}
 	
 	
