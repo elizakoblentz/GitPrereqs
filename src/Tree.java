@@ -70,6 +70,7 @@ public class Tree {
 		while (br.ready())
 		{
 			String temp = br.readLine();
+			indexOfColon = temp.indexOf(":");
 			indexSha.add(temp.substring(0, indexOfColon-1));
 			indexFileName.add(temp.substring(indexOfColon+2));
 		}
@@ -144,6 +145,7 @@ public class Tree {
 	
 	public static void main (String [] args) throws IOException
 	{
+		/*
 		ArrayList<String> arr1 = new ArrayList<String>();
 		ArrayList<String> arr2 = new ArrayList<String>();
 		
@@ -156,10 +158,10 @@ public class Tree {
 		arr2.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
 		arr2.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
 		
-		Tree tree1 = new Tree (arr1, null);
+		//Tree tree1 = new Tree (arr1, null);
 		Tree tree2 = new Tree (arr2, tree1.getTreeSha());
 		//System.out.println (tree2.getTreeSha());
-		
+		*/
 	}
 	
 }

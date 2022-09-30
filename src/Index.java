@@ -25,7 +25,8 @@ public class Index {
 		
 	}
 	
-	private void update () throws Exception {
+	private void update () throws Exception 
+	{
 		FileOutputStream clearer = new FileOutputStream("index");
 		clearer.close();
 		PrintWriter out = new PrintWriter("index");
