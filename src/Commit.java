@@ -166,45 +166,33 @@ public class Commit {
 		fwOb.close();
 	}
 	
+	public void delete()
+	{
+		
+	}
 	
-	public static void main (String[]args) throws Exception{
-		/*
+	public static void main (String[]args) throws Exception
+	{
 		Blob blob1 = new Blob ("ElizaTesterBlob1.txt");
-		Blob blob2 = new Blob ("ElizaTesterBlob2.txt");
-		Blob blob3 = new Blob ("ElizaTesterBlob3.txt");
-		*/
 		
 		Index index1 = new Index();
+		
 		index1.init();
+		
 		index1.add("ElizaTesterBlob1.txt");
 		index1.add("ElizaTesterBlob2.txt");
 		index1.add("ElizaTesterBlob3.txt");
 		
 		Commit commit1 = new Commit ("this is my summary!", "Eliza Koblentz", null);
-
+		
 		Index index2 = new Index();
 		index2.init();
-		index2.add("ElizaTesterBlob1.txt");
-		index2.add("ElizaTesterBlob2.txt");
-		index2.add("ElizaTesterBlob3.txt");
+		index2.add("ElizaTesterBlob4.txt");
+		index2.add("ElizaTesterBlob5.txt");
+		index2.add("ElizaTesterBlob6.txt");
 		
 		Commit commit2 = new Commit ("this is my second summary!", "Eliza Koblentz", commit1.createFileName());
 		
-		/*
-		test.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
-		test.add("blob : 01d82591292494afd1602d175e165f94992f6f5f");
-		test.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
-		test.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
-		test.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
-		//Tree treeTest = new Tree(test);
-		
-		//Commit commit1 = new Commit("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "this is cool", "charlie seymour", null);
-		//Commit commit2 = new Commit("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "wow, really cool", "charlie seymour", commit1.createFileName());
-		//commit1.setNext(commit2.createFileName());
-		//Commit commit3 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "cool! this is", "charlie seymour", commit2.createFileName());
-		//Commit commit4 = new Commit ("objects/dd4840f48a74c1f97437b515101c66834b59b1be", "is this cool?", "charlie seymour", commit3.createFileName());
-		//commit2.setNext(commit3.createFileName());
-		 */
 	}
 	
 }

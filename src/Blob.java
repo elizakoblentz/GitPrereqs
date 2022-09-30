@@ -8,6 +8,7 @@ import java.io.*;
 
 public class Blob {
 	String fileName;
+	private String code;
 	public Blob (String fileName) throws Exception {
 		this.fileName = fileName;
 		//zipFile();
@@ -53,7 +54,7 @@ public class Blob {
     public void writeFile() throws NoSuchAlgorithmException, IOException {
     	//reading and printing the file to new file:
     	//String zipFileName = this.fileName;
-    	String code = sha1Code(fileName);
+    	code = sha1Code(fileName);
     	FileInputStream in = new FileInputStream(fileName);
     	FileOutputStream out = new FileOutputStream("objects/" + code);
     	try {
@@ -82,6 +83,10 @@ public class Blob {
             }
         }
     	
+    }
+    public String getSha()
+    {
+    	return code;
     }
    
     /*
