@@ -172,7 +172,7 @@ public class Commit {
 	
 	public void checkTreeForFile(String tree, String fileName) throws IOException
 	{
-		System.out.println ("Goes in file");
+		System.out.println ("Goes in method");
 		if (parent != null)
 		{
 			System.out.println ("Makes in if statement");
@@ -211,7 +211,30 @@ public class Commit {
 			if (c == 1)
 			{
 				System.out.println ("I've found correct Blob!");
-				return;
+				System.out.println (treeSha);
+				String content = "";
+				
+				for (int index = 0; index < blobsNotDeleted.size(); index++)
+				{
+					content +=  blobsNotDeleted.get(index) + "\n"; 
+				}
+				/*
+				Path p = Paths.get("objects/" + treeSha);
+		        try {
+		            Files.writeString(p, content, StandardCharsets.ISO_8859_1);
+		        } catch (IOException e) {
+		            // TODO Auto-generated catch block
+		            e.printStackTrace();
+		        }
+		        */
+				FileWriter writer = new FileWriter(new File("objects/" + treeSha), true );
+				
+				for (int index = 0; index < blobsNotDeleted.size(); index++)
+				{
+					System.out.println ("Goes in printwriter" + blobsNotDeleted.get(index));
+					writer.append(blobsNotDeleted.get(index) + "\n"); 
+				}
+				writer.close();
 			}
 			else
 			{
@@ -240,7 +263,7 @@ public class Commit {
 		
 		
 		Index index2 = new Index();
-		index2.init();
+		index2.init(); 
 		index2.add("ElizaTesterBlob4.txt");
 		index2.add("ElizaTesterBlob5.txt");
 		index2.add("ElizaTesterBlob6.txt");
