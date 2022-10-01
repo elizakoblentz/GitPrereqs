@@ -46,7 +46,7 @@ public class Tree {
 	public void saveInfo() throws IOException {
 		
 		File tree=new File("objects/"+ content);
-		tree.createNewFile();
+		//tree.createNewFile();
 		PrintWriter writer=new PrintWriter(tree);
 		writer.print(fileData);
 		writer.close();
