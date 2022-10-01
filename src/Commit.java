@@ -181,9 +181,9 @@ public class Commit {
 			String fullLine = br.readLine();
 			String parTreeSha = fullLine.substring(fullLine.indexOf("/")+1);
 			System.out.println ("Found parent tree");
-			File f = new File (parTreeSha);
 			
-			BufferedReader buf = new BufferedReader (new FileReader(f));
+			System.out.println (parTreeSha);
+			BufferedReader buf = new BufferedReader (new FileReader("objects/" + parTreeSha));
 			String parTree = buf.readLine();
 			
 			if (parTree.indexOf("tree") == -1 && parTree.indexOf(fileName) == -1)
@@ -210,7 +210,7 @@ public class Commit {
 			}
 			if (c == 1)
 			{
-				System.out.println ("I've found correct Blob");
+				System.out.println ("I've found correct Blob!");
 				return;
 			}
 			else
@@ -246,7 +246,7 @@ public class Commit {
 		index2.add("ElizaTesterBlob6.txt");
 		
 		Commit commit2 = new Commit ("this is my second summary!", "Eliza Koblentz", commit1.createFileName());
-		commit1.checkTreeForFile("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
+		commit2.checkTreeForFile("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
 	}
 	
 }
