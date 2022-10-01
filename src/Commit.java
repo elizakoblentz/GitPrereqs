@@ -18,6 +18,7 @@ public class Commit {
 	private String date;
 	private String treeSha;
 	private String fileName;
+	private ArrayList<String> blobsNotDeleted;
 	
 	public Commit (String summary, String author, String parent) throws Exception {
 		File theDir = new File("/objects");
@@ -29,6 +30,7 @@ public class Commit {
 		this.next = null;
 		this.summary = summary;
 		this.author = author;
+		blobsNotDeleted = new ArrayList<String>();
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
 		Date date = new Date();
@@ -167,9 +169,61 @@ public class Commit {
 		fwOb.close();
 	}
 	
+	
+	public void checkTreeForFile(String tree, String fileName) throws IOException
+	{
+		System.out.println ("Goes in file");
+		if (parent != null)
+		{
+			System.out.println ("Makes in if statement");
+			int c = 0;
+			BufferedReader br = new BufferedReader(new FileReader(parent));
+			String fullLine = br.readLine();
+			String parTreeSha = fullLine.substring(fullLine.indexOf("/")+1);
+			System.out.println ("Found parent tree");
+			File f = new File (parTreeSha);
+			
+			BufferedReader buf = new BufferedReader (new FileReader(f));
+			String parTree = buf.readLine();
+			
+			if (parTree.indexOf("tree") == -1 && parTree.indexOf(fileName) == -1)
+			{
+				blobsNotDeleted.add(parTree);
+			}
+			else if (parTree.indexOf("tree") == -1 && parTree.indexOf(fileName) != -1)
+			{
+				c++;
+			}
+			
+			while (buf.ready())
+			{
+				System.out.println ("Makes in while loop");
+				String temp = buf.readLine();
+				if (temp.indexOf(fileName) == -1)
+				{
+					blobsNotDeleted.add(temp);
+				}
+				if (temp.indexOf(fileName) != -1)
+				{
+					c++;
+				}
+			}
+			if (c == 1)
+			{
+				System.out.println ("I've found correct Blob");
+				return;
+			}
+			else
+			{
+				System.out.println ("I have not found correct Blob");
+				checkTreeForFile(parTree, fileName);
+			}
+		}
+	}
+	
 	public void createHead()
 	{
-		if ()
+		//if ()
 	}
 	
 	public static void main (String[]args) throws Exception
@@ -181,8 +235,9 @@ public class Commit {
 		index1.add("ElizaTesterBlob1.txt");
 		index1.add("ElizaTesterBlob2.txt");
 		index1.add("ElizaTesterBlob3.txt");
-		index1.remove("ElizaTesterBlob3.txt");
 		Commit commit1 = new Commit ("this is my summary!", "Eliza Koblentz", null);
+		
+		
 		
 		Index index2 = new Index();
 		index2.init();
@@ -191,7 +246,7 @@ public class Commit {
 		index2.add("ElizaTesterBlob6.txt");
 		
 		Commit commit2 = new Commit ("this is my second summary!", "Eliza Koblentz", commit1.createFileName());
-		
+		commit1.checkTreeForFile("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
 	}
 	
 }
