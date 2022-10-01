@@ -170,19 +170,15 @@ public class Commit {
 	}
 	
 	
-	public void checkTreeForFile(String tree, String fileName) throws IOException
+	public void checkTreeForFileAndDelete(String tree, String fileName) throws IOException
 	{
-		System.out.println ("Goes in method");
 		if (parent != null)
 		{
-			System.out.println ("Makes in if statement");
 			int c = 0;
 			BufferedReader br = new BufferedReader(new FileReader(parent));
 			String fullLine = br.readLine();
 			String parTreeSha = fullLine.substring(fullLine.indexOf("/")+1);
-			System.out.println ("Found parent tree");
 			
-			System.out.println (parTreeSha);
 			BufferedReader buf = new BufferedReader (new FileReader("objects/" + parTreeSha));
 			String parTree = buf.readLine();
 			
@@ -197,7 +193,6 @@ public class Commit {
 			
 			while (buf.ready())
 			{
-				System.out.println ("Makes in while loop");
 				String temp = buf.readLine();
 				if (temp.indexOf(fileName) == -1)
 				{
@@ -210,8 +205,6 @@ public class Commit {
 			}
 			if (c == 1)
 			{
-				System.out.println ("I've found correct Blob!");
-				System.out.println (treeSha);
 				String content = "";
 				
 				for (int index = 0; index < blobsNotDeleted.size(); index++)
@@ -231,15 +224,13 @@ public class Commit {
 				
 				for (int index = 0; index < blobsNotDeleted.size(); index++)
 				{
-					System.out.println ("Goes in printwriter" + blobsNotDeleted.get(index));
 					writer.append(blobsNotDeleted.get(index) + "\n"); 
 				}
 				writer.close();
 			}
 			else
 			{
-				System.out.println ("I have not found correct Blob");
-				checkTreeForFile(parTree, fileName);
+				checkTreeForFileAndDelete(parTree, fileName);
 			}
 		}
 	}
@@ -269,7 +260,7 @@ public class Commit {
 		index2.add("ElizaTesterBlob6.txt");
 		
 		Commit commit2 = new Commit ("this is my second summary!", "Eliza Koblentz", commit1.createFileName());
-		commit2.checkTreeForFile("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
+		commit2.checkTreeForFileAndDelete("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
 	}
 	
 }
