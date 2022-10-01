@@ -37,6 +37,7 @@ public class Commit {
 		fileName = createFileName();
 		File file = new File(fileName);
 		
+		createHead();
 		
 		generateTree();
 		writeFile(file);
@@ -166,15 +167,13 @@ public class Commit {
 		fwOb.close();
 	}
 	
-	public void delete()
+	public void createHead()
 	{
-		
+		if ()
 	}
 	
 	public static void main (String[]args) throws Exception
-	{
-		Blob blob1 = new Blob ("ElizaTesterBlob1.txt");
-		
+	{	
 		Index index1 = new Index();
 		
 		index1.init();
@@ -182,7 +181,7 @@ public class Commit {
 		index1.add("ElizaTesterBlob1.txt");
 		index1.add("ElizaTesterBlob2.txt");
 		index1.add("ElizaTesterBlob3.txt");
-		
+		index1.remove("ElizaTesterBlob3.txt");
 		Commit commit1 = new Commit ("this is my summary!", "Eliza Koblentz", null);
 		
 		Index index2 = new Index();
