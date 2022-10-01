@@ -38,9 +38,11 @@ public class Index {
 		out.close();
 	}
 	
+	
 	public void remove (String fileName) throws Exception {
 		String shaCode = files.get(fileName);
 		files.remove(fileName);
+		files.put("*deleted*", shaCode);
 		File removed = new File("objects/" + shaCode);
 		removed.delete();
 		update();
