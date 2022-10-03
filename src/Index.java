@@ -1,6 +1,9 @@
 import java.util.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Index {
 	HashMap<String, String> files;
@@ -16,6 +19,14 @@ public class Index {
 	public void init () throws Exception {
 		FileOutputStream out = new FileOutputStream("index");
 		out.close();
+		
+		Path p = Paths.get("HEAD");
+        try {
+            Files.writeString(p, "", StandardCharsets.ISO_8859_1);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 	
 	public void add (String fileName) throws Exception {
