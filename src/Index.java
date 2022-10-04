@@ -20,11 +20,10 @@ public class Index {
 		FileOutputStream out = new FileOutputStream("index");
 		out.close();
 		
-		Path p = Paths.get("HEAD");
+		Path p1 = Paths.get("HEAD");
         try {
-            Files.writeString(p, "", StandardCharsets.ISO_8859_1);
+            Files.writeString(p1, "", StandardCharsets.ISO_8859_1);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 	}
