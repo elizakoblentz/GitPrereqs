@@ -202,6 +202,26 @@ Index index1 = new Index();
 		
 		commit3.checkTreeForFileAndDelete("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
 		
+		Index index4 = new Index();
+		index4.init(); 
+		index4.add("ElizaTesterBlob1.txt");
+		index4.add("ElizaTesterBlob2.txt");
+		index4.add("ElizaTesterBlob3.txt");
+		
+		Commit commit4 = new Commit ("this is my fourth summary!", "Eliza Koblentz");
+		
+		commit4.checkTreeForFileAndDelete("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
+		
+		Index index5 = new Index();
+		index5.init(); 
+		index5.add("ElizaTesterBlob1.txt");
+		index5.add("ElizaTesterBlob2.txt");
+		index5.add("ElizaTesterBlob3.txt");
+		
+		Commit commit5 = new Commit ("this is my fifth summary!", "Eliza Koblentz");
+		
+		commit5.checkTreeForFileAndDelete("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
+		
 	}
 	
 	
