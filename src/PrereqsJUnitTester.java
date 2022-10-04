@@ -164,13 +164,44 @@ class PrereqsJUnitTester {
 		
 		test.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
 		test.add("blob : 01d82591292494afd1602d175e165f94992f6f5f");
-		test.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
+		test.add("blob : f1de82236ab908c86ed095023b1d2e6ddf78a6d83");
 		test.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
 		test.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
 		//Tree treeTest = new Tree(test);
 		
 		File tester=new File(".objects/dd4840f48a74c1f97437b515101c66834b59b1be");
 		assertTrue(!tester.exists());
+		
+Index index1 = new Index();
+		
+		index1.init();
+		
+		index1.add("ElizaTesterBlob1.txt");
+		index1.add("ElizaTesterBlob2.txt");
+		index1.add("ElizaTesterBlob3.txt");
+		Commit commit1 = new Commit ("this is my summary!", "Eliza Koblentz");
+		
+		
+		
+		Index index2 = new Index();
+		index2.init(); 
+		index2.add("ElizaTesterBlob4.txt");
+		index2.add("ElizaTesterBlob5.txt");
+		index2.add("ElizaTesterBlob6.txt");
+		
+		Commit commit2 = new Commit ("this is my second summary!", "Eliza Koblentz");
+		commit2.checkTreeForFileAndDelete("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
+		
+		Index index3 = new Index();
+		index3.init(); 
+		index3.add("ElizaTesterBlob1.txt");
+		index3.add("ElizaTesterBlob2.txt");
+		index3.add("ElizaTesterBlob3.txt");
+		
+		Commit commit3 = new Commit ("this is my third summary!", "Eliza Koblentz");
+		
+		commit3.checkTreeForFileAndDelete("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
+		
 	}
 	
 	

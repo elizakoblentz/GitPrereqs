@@ -37,18 +37,19 @@ public class Commit {
 		fileName = createFileName();
 		File file = new File(fileName);
 		
-		if (getHead() == null)
+		if (getHead()!= null)
 		{
-			System.out.println ("Head in construtor: " + getHead());
-			parent = null;
+			parent = getHead();
+			System.out.println (parent);
+			
 		}
 		else
 		{
-			System.out.println (getHead());
-			parent = getHead();
+			parent = null;
+			System.out.println (parent);
 		}
 		
-		changeHead();
+		
 		
 		generateTree();
 		writeFile(file);
@@ -58,6 +59,7 @@ public class Commit {
 			changeParentChildToMe(parent);
 		}
 		clearIndex();
+		changeHead(fileName.substring(fileName.indexOf("/")+1));
 	}
 	
 	public String getDate() {
@@ -246,32 +248,27 @@ public class Commit {
 	}
 	
 	
-	public void changeHead() throws IOException
+	public void changeHead(String fileName) throws IOException
 	{
-		
-		PrintWriter writer = new PrintWriter("HEAD");
-		writer.flush();
-		System.out.println ("First line:" + fileName);
-		writer.println(fileName.substring(fileName.indexOf("/")+1));
-		System.out.println ("file name: " + fileName.substring(fileName.indexOf("/")+1));
-		BufferedReader br = new BufferedReader(new FileReader("HEAD"));
-		String temp = br.readLine();
-		System.out.println ("line of head:" + temp);
-		writer.close();
-		
+		{
+			File f = new File ("HEAD");
+			f.delete();
+			f.createNewFile();
+			PrintWriter printWriter3 = new PrintWriter ("HEAD");
+			printWriter3.print(fileName);
+			printWriter3.close();
+		}
 	}
 	
 	public String getHead() throws IOException
 	{
-		BufferedReader br = new BufferedReader(new FileReader("HEAD"));
-		String temp = br.readLine();
-		br.close();
-		
-		return temp;
+		BufferedReader b = new BufferedReader(new FileReader("HEAD")); 
+		return b.readLine();
 	}
 	
 	public static void main (String[]args) throws Exception
 	{	
+		
 		Index index1 = new Index();
 		
 		index1.init();
