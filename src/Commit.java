@@ -20,14 +20,12 @@ public class Commit {
 	private String fileName;
 	private ArrayList<String> blobsNotDeleted;
 	
-	public Commit (String summary, String author, String parent) throws Exception {
+	public Commit (String summary, String author) throws Exception {
 		File theDir = new File("/objects");
 		if (!theDir.exists()){
 		    theDir.mkdirs();
 		}
-		
-		this.parent = parent;
-		this.next = null;
+
 		this.summary = summary;
 		this.author = author;
 		blobsNotDeleted = new ArrayList<String>();
@@ -39,7 +37,18 @@ public class Commit {
 		fileName = createFileName();
 		File file = new File(fileName);
 		
-		createHead();
+		if (getHead() == null)
+		{
+			System.out.println ("Head in construtor: " + getHead());
+			parent = null;
+		}
+		else
+		{
+			System.out.println (getHead());
+			parent = getHead();
+		}
+		
+		changeHead();
 		
 		generateTree();
 		writeFile(file);
@@ -99,6 +108,7 @@ public class Commit {
 			content += br.readLine()+"\n";
 		}
 		content += fileName + "\n";
+		System.out.println (fileName);
 		br.readLine();
 		for (int index = 0; index < 2; index++)
 		{
@@ -235,9 +245,29 @@ public class Commit {
 		}
 	}
 	
-	public void createHead()
+	
+	public void changeHead() throws IOException
 	{
-		//if ()
+		
+		PrintWriter writer = new PrintWriter("HEAD");
+		writer.flush();
+		System.out.println ("First line:" + fileName);
+		writer.println(fileName.substring(fileName.indexOf("/")+1));
+		System.out.println ("file name: " + fileName.substring(fileName.indexOf("/")+1));
+		BufferedReader br = new BufferedReader(new FileReader("HEAD"));
+		String temp = br.readLine();
+		System.out.println ("line of head:" + temp);
+		writer.close();
+		
+	}
+	
+	public String getHead() throws IOException
+	{
+		BufferedReader br = new BufferedReader(new FileReader("HEAD"));
+		String temp = br.readLine();
+		br.close();
+		
+		return temp;
 	}
 	
 	public static void main (String[]args) throws Exception
@@ -249,7 +279,7 @@ public class Commit {
 		index1.add("ElizaTesterBlob1.txt");
 		index1.add("ElizaTesterBlob2.txt");
 		index1.add("ElizaTesterBlob3.txt");
-		Commit commit1 = new Commit ("this is my summary!", "Eliza Koblentz", null);
+		Commit commit1 = new Commit ("this is my summary!", "Eliza Koblentz");
 		
 		
 		
@@ -259,8 +289,10 @@ public class Commit {
 		index2.add("ElizaTesterBlob5.txt");
 		index2.add("ElizaTesterBlob6.txt");
 		
-		Commit commit2 = new Commit ("this is my second summary!", "Eliza Koblentz", commit1.createFileName());
-		commit2.checkTreeForFileAndDelete("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
+		Commit commit2 = new Commit ("this is my second summary!", "Eliza Koblentz");
+		
+		//commit2.checkTreeForFileAndDelete("b9783d1a7510f1b98e3592c23ba91675db9837e0", "ElizaTesterBlob1.txt");
+		
 	}
 	
 }
