@@ -8,6 +8,9 @@ import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.io.*;
+import java.io.PrintWriter;
+import java.io.FileReader;
+import java.io.File;
 
 public class Commit {
 	private String parent;
